@@ -1,0 +1,10 @@
+<div class="bg-white shadow-md rounded-lg p-4">
+  <div class="flex justify-between items-center mb-2">
+    <%= link_to patient.full_name, patient_path(patient), class: "text-indigo-500 font-medium hover:text-indigo-600" %>
+    <% if patient.appointment_date %>
+      <div class="text-gray-500 text-sm">
+        on <%= patient.appointment_date.strftime('%B %d, %Y at %I:%M%p') %>
+      </div>
+    <% end %>
+  </div>
+</div>

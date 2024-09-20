@@ -1,0 +1,40 @@
+<div class="flex justify-center items-center h-screen">
+  <div class="bg-white shadow-md rounded-lg p-8 w-full max-w-md">
+    <h2 class="text-2xl font-bold mb-6">Log in</h2>
+
+    <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
+      <div class="mb-4">
+        <%= f.label :email, class: "block font-medium mb-2" %>
+        <%= f.email_field :email, autofocus: true, autocomplete: "email", class: "w-full border rounded-lg py-2 px-3 focus:outline-none focus:ring-2 focus:ring-blue-500" %>
+      </div>
+
+      <div class="mb-4">
+        <%= f.label :password, class: "block font-medium mb-2" %>
+        <%= f.password_field :password, autocomplete: "current-password", class: "w-full border rounded-lg py-2 px-3 focus:outline-none focus:ring-2 focus:ring-blue-500" %>
+      </div>
+
+      <% if devise_mapping.rememberable? %>
+        <div class="flex items-center mb-4">
+          <%= f.check_box :remember_me, class: "mr-2" %>
+          <%= f.label :remember_me, class: "text-sm" %>
+        </div>
+      <% end %>
+
+      <div class="text-center">
+        <%= f.submit "Log in", class: "bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded-lg w-full" %>
+      </div>
+    <% end %>
+
+    <div class="mt-4 text-center">
+      <%= render "devise/shared/links" %>
+    </div>
+    <div class="max-w-md mx-auto my-8 space-y-4">
+      <div>
+        <%= button_to "Log In As Demo Doctor", doctor_demo_login_demo_logins_path, method: :post, class: "w-full bg-indigo-500 hover:bg-indigo-600 text-white font-bold py-2 px-4 rounded" %>
+      </div>
+      <div>
+        <%= button_to "Log In As Demo Receptionist", receptionist_demo_login_demo_logins_path, method: :post, class: "w-full bg-indigo-500 hover:bg-indigo-600 text-white font-bold py-2 px-4 rounded" %>
+      </div>
+    </div>
+  </div>
+</div>

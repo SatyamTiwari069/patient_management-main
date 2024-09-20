@@ -1,0 +1,60 @@
+<%= form_with(model: patient, class: "space-y-4") do |form| %>
+  <div>
+    <%= form.label :first_name, class: "block font-medium mb-2" %>
+    <%= form.text_field :first_name, class: "w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500" %>
+    <% if patient.errors[:first_name].any? %>
+      <div class="text-red-500 text-sm" role="alert">
+        <%= patient.errors.full_messages_for(:first_name).join(", ") %>
+      </div>
+    <% end %>
+  </div>
+
+  <div>
+    <%= form.label :last_name, class: "block font-medium mb-2" %>
+    <%= form.text_field :last_name, class: "w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500" %>
+    <% if patient.errors[:last_name].any? %>
+      <div class="text-red-500 text-sm" role="alert">
+        <%= patient.errors.full_messages_for(:last_name).join(", ") %>
+      </div>
+    <% end %>
+  </div>
+
+  <div>
+    <%= form.label :date_of_birth, class: "block font-medium mb-2" %>
+    <%= form.date_field :date_of_birth, class: "w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500" %>
+    <% if patient.errors[:date_of_birth].any? %>
+      <div class="text-red-500 text-sm" role="alert">
+        <%= patient.errors.full_messages_for(:date_of_birth).join(", ") %>
+      </div>
+    <% end %>
+  </div>
+
+  <div>
+    <%= form.label :doctor, class: "block font-medium mb-2" %>
+    <%= form.collection_select :doctor_id, User.where(role: 'doctor').order(:first_name), :id, :full_name_and_speciality, { prompt: 'Select a doctor' }, class: "w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500" %>
+  </div>
+
+  <div>
+    <%= form.label :appointment_date, class: "block font-medium mb-2" %>
+    <%= form.datetime_field :appointment_date, class: "w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500" %>
+    <% if patient.errors[:appointment_date].any? %>
+      <div class="text-red-500 text-sm" role="alert">
+        <%= patient.errors.full_messages_for(:appointment_date).join(", ") %>
+      </div>
+    <% end %>
+  </div>
+
+  <div>
+    <%= form.label "Any Allergies?", class: "block font-medium mb-2" %>
+    <%= form.text_area :allergies, class: "w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500" %>
+  </div>
+
+  <div>
+    <%= form.label "Chief Complaints:", class: "block font-medium mb-2" %>
+    <%= form.text_area :chief_complaints, class: "w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500" %>
+  </div>
+
+  <div>
+    <%= form.submit class: "bg-indigo-500 hover:bg-indigo-600 text-white font-medium py-2 px-4 rounded w-full" %>
+  </div>
+<% end %>

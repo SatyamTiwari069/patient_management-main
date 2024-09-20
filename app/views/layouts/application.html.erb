@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>PatientsManagement</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+    <%= stylesheet_link_tag "tailwind", "inter-font", "data-turbo-track": "reload" %>
+
+    <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
+    <%= javascript_importmap_tags %>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  </head>
+
+  <body class="bg-gray-100 font-inter">
+  <header class="bg-white shadow-md mb-8">
+    <div class="max-w-7xl mx-auto py-4 px-4 sm:px-6 lg:px-8 flex justify-between items-center">
+      <%= link_to 'Patient Management', root_path, class: "text-indigo-500 font-bold text-xl hover:text-indigo-600" %>
+      <div class="flex items-center space-x-4">
+        <% if !user_signed_in? %>
+          <%#= link_to "Log In", new_user_session_url, method: "get", class: "text-gray-500 hover:text-gray-700" %>
+          <%#= link_to "Sign Up", new_user_registration_url, method: "get", class: "text-gray-500 hover:text-gray-700" %>
+        <% else %>
+          <div class="flex items-center space-x-4">
+            <div class="text-gray-500">
+              Currently signed in as: <%= current_user.full_name %> (<%= current_user.role %>)
+            </div>
+            <%= button_to "Log Out", destroy_user_session_url, method: "delete", class: "bg-indigo-500 hover:bg-indigo-600 text-white font-bold py-2 px-4 rounded" %>
+            <% if current_user.role == 'receptionist' %>
+              <%= link_to "Register a new patient", new_patient_path, class: "bg-indigo-500 hover:bg-indigo-600 text-white font-bold py-2 px-4 rounded" %>
+            <% else %>
+              <%= link_to "See Patients vs Days Graph", patients_vs_days_graph_doctors_path, class: "bg-indigo-500 hover:bg-indigo-600 text-white font-bold py-2 px-4 rounded" %>
+            <% end %>
+          </div>
+        <% end %>
+      </div>
+    </div>
+  </header>
+
+  <% if alert || notice %>
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mb-8" data-controller="flash">
+      <% if notice %>
+        <div class="bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded relative" role="alert">
+          <strong class="font-bold">Notice:</strong>
+          <span class="block sm:inline"><%= notice %></span>
+        </div>
+      <% end %>
+      <% if alert %>
+        <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative" role="alert">
+          <strong class="font-bold">Alert:</strong>
+          <span class="block sm:inline"><%= alert %></span>
+        </div>
+      <% end %>
+    </div>
+  <% end %>
+
+  <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <%= yield %>
+  </main>
+  </body>
+</html>
